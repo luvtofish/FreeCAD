@@ -23,6 +23,9 @@
 
 import Path
 import numpy
+import Path.Base.Util as PathUtil
+import Path.Post.Command
+import Path.Main.Job as PathJob
 
 __title__ = "Tapping Path Generator"
 __author__ = "sliptonic (Brad Collette)"
@@ -104,5 +107,9 @@ def generate(
     if dwelltime > 0.0:
             cmdParams["P"] = dwelltime
 
+    for obj in PathJob.Operations.Group:
+        tc = PathUtil.toolControllerForOp(obj)
+        print(tc.Tool.Rotation)
+        
     cmd = "G84"
     return [Path.Command(cmd, cmdParams)]
