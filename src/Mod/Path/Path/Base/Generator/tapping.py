@@ -20,7 +20,7 @@
 # *                                                                         *
 # ***************************************************************************
 
-
+import FreeCAD
 import Path
 import numpy
 
@@ -103,6 +103,12 @@ def generate(
 
     if dwelltime > 0.0:
             cmdParams["P"] = dwelltime
-    
-    cmd = "G84"
+            
+    # Determine if tapping tool is RH or LH via roation attribute. 
+    handedness = FreeCAD.ActiveDocument.Tapping.ToolController.Tool.Rotation
+    if handedness == "Left Hand":
+        cmd = "G74"
+    else:
+        cmd = "G84"
+
     return [Path.Command(cmd, cmdParams)]
