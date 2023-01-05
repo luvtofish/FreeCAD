@@ -110,6 +110,8 @@ def generate(
     for obj in PathJob.Operations.Group:
         tc = PathUtil.toolControllerForOp(obj)
         if tc is not None and PathUtil.opProperty(obj, "Active"):
+            print(tc.Name)
+            print(tc.Tool)
             print(tc.Tool.Rotation)
 
     cmd = "G84"
