@@ -209,7 +209,7 @@ class ObjectTapping(PathCircularHoleBase.ObjectOp):
         # spotshapes instead of holes.
 
         startHeight = obj.StartDepth.Value + self.job.SetupSheet.SafeHeightOffset.Value
-
+        
         edgelist = []
         for hole in holes:
             v1 = FreeCAD.Vector(hole["x"], hole["y"], obj.StartDepth.Value)
@@ -249,6 +249,9 @@ class ObjectTapping(PathCircularHoleBase.ObjectOp):
             repeat = 1  # technical debt:  Add a repeat property for user control
    #         chipBreak = obj.chipBreakEnabled and obj.PeckEnabled
 
+            # Get handedness attribute from obj.tool for passing to generate
+            rh = getattr(obj.Tool, "Rotation", "Right Hand") == "Right Hand"
+
             try:
                 tappingcommands = tapping.generate(
                     edge,
@@ -257,6 +260,7 @@ class ObjectTapping(PathCircularHoleBase.ObjectOp):
                     repeat,
                     obj.RetractHeight.Value,
    #                 chipBreak=chipBreak,
+                    rh,
                 )
 
             except ValueError as e:  # any targets that fail the generator are ignored
