@@ -20,7 +20,6 @@
 # *                                                                         *
 # ***************************************************************************
 
-import FreeCAD
 import Path
 import numpy
 
@@ -37,9 +36,7 @@ else:
     Path.Log.setLevel(Path.Log.Level.INFO, Path.Log.thisModule())
 
 
-def generate(
-    edge, dwelltime=0.0, repeat=1, retractheight=None
-):
+def generate(edge, dwelltime=0.0, repeat=1, retractheight=None):
     """
     Generates Gcode for tapping a single hole.
 
@@ -102,13 +99,8 @@ def generate(
         cmdParams["L"] = repeat
 
     if dwelltime > 0.0:
-            cmdParams["P"] = dwelltime
-            
-    # Determine if tapping tool is RH or LH via roation attribute. 
-    handed = FreeCAD.ActiveDocument.Tapping.ToolController.Tool.Rotation
-    if handed == "Left Hand":
-        cmd = "G74"
-    else:
-        cmd = "G84"
+        cmdParams["P"] = dwelltime
+
+    cmd = "G84"
 
     return [Path.Command(cmd, cmdParams)]
