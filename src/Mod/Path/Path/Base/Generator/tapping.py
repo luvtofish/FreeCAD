@@ -105,8 +105,8 @@ def generate(
             cmdParams["P"] = dwelltime
             
     # Determine if tapping tool is RH or LH via roation attribute. 
-    handedness = FreeCAD.ActiveDocument.Tapping.ToolController.Tool.Rotation
-    if handedness == "Left Hand":
+    handed = FreeCAD.ActiveDocument.Tapping.ToolController.Tool.Rotation
+    if handed == "Left Hand":
         cmd = "G74"
     else:
         cmd = "G84"
