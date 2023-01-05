@@ -250,7 +250,7 @@ class ObjectTapping(PathCircularHoleBase.ObjectOp):
    #         chipBreak = obj.chipBreakEnabled and obj.PeckEnabled
 
             # Get handedness attribute from obj.tool for passing to generate
-            rh = getattr(obj.Tool, "Rotation", "Right Hand") == "Right Hand"
+            rh = getattr(obj.ToolController.Tool, "Rotation", "Right Hand") == "Right Hand"
 
             try:
                 tappingcommands = tapping.generate(
