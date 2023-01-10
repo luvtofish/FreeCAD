@@ -257,7 +257,7 @@ class ObjectTapping(PathCircularHoleBase.ObjectOp):
                 == "Right Hand"
             )
 
-            spindleDir = (obj.ToolController.Tool, "spindleDir", "Forward") == "Forward"
+            spindleDir = (obj.ToolController.Tool, "SpindleDir", "Forward") == "Forward"
 
             try:
                 tappingcommands = tapping.generate(
