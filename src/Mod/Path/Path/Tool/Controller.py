@@ -282,6 +282,15 @@ class ToolController:
                 args["spindledirection"] = toolchange.SpindleDirection.CW
             else:
                 args["spindledirection"] = toolchange.SpindleDirection.CCW
+        
+         # Raise Error if tool rotation doesn't match spindle direction.
+        if obj.SpindleDir != None:
+            if (obj.SpindleDir == "Forward" and obj.Tool.Rotation != "Right Hand") or (
+                obj.SpindleDir == "Reverse" and obj.Tool.Rotation != "Left Hand"
+            ):
+                raise ValueError(
+                "Spindle Direction does not match tool bit 'Rotation' attribute"
+            )
 
         commands = toolchange.generate(**args)
 
