@@ -160,7 +160,7 @@ class ObjectTapping(PathCircularHoleBase.ObjectOp):
         ):
             Path.Log.error(
                 translate(
-                    "Path_Tapping", "Tapping requires a Tap tool with Pitch and or TPI"
+                    "Path_Tapping", "Tapping Operation requires a Tap tool with Pitch or TPI"
                 )
             )
             return
