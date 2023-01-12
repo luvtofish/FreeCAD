@@ -155,6 +155,16 @@ class ObjectTapping(PathCircularHoleBase.ObjectOp):
         Path.Log.track()
         machine = PathMachineState.MachineState()
 
+        if not hasattr(obj.ToolController.Tool, "Pitch") or not hasattr(
+            obj.ToolController.Tool, "TPI"
+        ):
+            Path.Log.error(
+                translate(
+                    "Path_Tapping", "Tapping requires a Tap tool with Pitch and or TPI"
+                )
+            )
+            return
+
         self.commandlist.append(Path.Command("(Begin Tapping)"))
 
         # rapid to clearance height
@@ -228,11 +238,7 @@ class ObjectTapping(PathCircularHoleBase.ObjectOp):
 
             try:
                 tappingcommands = tapping.generate(
-                    edge,
-                    dwelltime,
-                    repeat,
-                    obj.RetractHeight.Value,
-                    isRightHand
+                    edge, dwelltime, repeat, obj.RetractHeight.Value, isRightHand
                 )
 
             except ValueError as e:  # any targets that fail the generator are ignored
