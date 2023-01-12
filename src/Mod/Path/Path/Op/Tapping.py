@@ -226,17 +226,13 @@ class ObjectTapping(PathCircularHoleBase.ObjectOp):
                 == "Right Hand"
             )
 
-            # Get spindle direction, pass to generate
-            spindleDir = getattr(obj.ToolController, "SpindleDir")
-
             try:
                 tappingcommands = tapping.generate(
                     edge,
                     dwelltime,
                     repeat,
                     obj.RetractHeight.Value,
-                    isRightHand,
-                    spindleDir,
+                    isRightHand
                 )
 
             except ValueError as e:  # any targets that fail the generator are ignored
