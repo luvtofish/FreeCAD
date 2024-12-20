@@ -79,22 +79,22 @@ void ViewProviderLine::attach(App::DocumentObject *obj) {
         noRole = true;
     }
 
-    static const float size = ViewProviderCoordinateSystem::defaultSize();
+    static const float size = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/View")->GetFloat("DatumLineSize", 70.0);
 
     SbVec3f verts[2];
     if (noRole) {
-        verts[0] = SbVec3f(2 * size, 0, 0);
+        verts[0] = SbVec3f(0, 0, 2 * size);
         verts[1] = SbVec3f(0, 0, 0);
     }
     else {
-        verts[0] = SbVec3f(size, 0, 0);
-        verts[1] = SbVec3f(0.2 * size, 0, 0);
+        verts[0] = SbVec3f(0, 0, size);
+        verts[1] = SbVec3f(0, 0, 0.2 * size);
     }
 
     // indexes used to create the edges
     static const int32_t lines[4] = { 0, 1, -1 };
 
-    SoSeparator *sep = getRoot();
+    SoSeparator *sep = getDatumRoot();
 
     auto pCoords = new SoCoordinate3 ();
     pCoords->point.setNum (2);
@@ -107,7 +107,7 @@ void ViewProviderLine::attach(App::DocumentObject *obj) {
     sep->addChild ( pLines );
 
     auto textTranslation = new SoTranslation ();
-    textTranslation->translation.setValue ( SbVec3f ( size * 1.1, 0, 0 ) );
+    textTranslation->translation.setValue(SbVec3f(0, 0, size * 1.1));
     sep->addChild ( textTranslation );
 
     auto ps = new SoPickStyle();
